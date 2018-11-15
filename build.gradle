@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+group 'clone-slack'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'com.ullink.slack', name: 'simpleslackapi', version: '1.2.0'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.3.4'
+}
+
+jar {
+    archiveName = "slaclone.jar"
+    manifest {
+        attributes 'Implementation-Title': 'slaclone', 'Implementation-Version': 0.1
+        attributes "Main-Class" : "slaclone.Main"
+    }
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+}
+
